@@ -2,20 +2,21 @@ package com.gossan.lmpback.models;
 
 import javax.persistence.*;
 
-public class Topic {
+@Entity
+public class State {
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	private int id;
-	private String value;
+	private String name;
 	
-	public Topic() {
+	public State() {
 	}
 	
-	public Topic(String value) {
-		this.value = value;
+	public State(String name) {
+		this.name = name;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -24,11 +25,13 @@ public class Topic {
 		this.id = id;
 	}
 
-	public String getValue() {
-		return value;
+	public String getName() {
+		return name;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setName(String name) {
+		this.name = name;
 	}
+	
+	
 }

@@ -1,21 +1,37 @@
 package com.gossan.lmpback.models;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.*;
 
 @Entity
 public class Event {
 	
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
+	@Temporal(TemporalType.DATE)
+	private Date startDate;
+	
+	@Temporal(TemporalType.DATE)
+	private Date endDate;
+	
+	@Embedded
+	private Address address;
+	
 	private String name;
+	
 	private String description;
-	private String address;
+	
 	private String image;
+	
+	@ManyToOne
+	@JoinColumn(name="FK_USER")
 	private User organizer;
-	private Date dateStart;
-	private Date dateEnd;
+	
+	@ManyToMany
+	private Collection<User> participants;
+	
 	private Topic topic;
 	
 	public Event() {

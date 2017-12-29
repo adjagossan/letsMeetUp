@@ -7,7 +7,6 @@
 	<artifactId>lmp-back</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
 	<name>lmp-back</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -37,11 +36,31 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+		<!-- Spring data JPA -->
 		<dependency>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-core</artifactId>
-		    <version>5.2.12.Final</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-rest -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+			<!--version>1.5.9.RELEASE</version-->
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+
+		<!--- H2 Database Engine -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
 		</dependency>
 		
 		<!--http://bitbybitblog.com/hsqldb-quick-setup/-->
@@ -49,6 +68,7 @@
 	        <groupId>org.hsqldb</groupId>
 	        <artifactId>hsqldb</artifactId>
 	        <version>2.3.3</version>
+			<scope>test</scope>
 	   </dependency>
 	   
 	   <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
@@ -57,17 +77,38 @@
 		    <artifactId>mysql-connector-java</artifactId>
 		    <version>8.0.8-dmr</version>
 		</dependency>
-   
+
 	</dependencies>
 
 	<build>
 		<plugins>
+			<!-- Package as an executable jar/war  -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
+	
+	<repositories>
+        <repository>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>https://repo.spring.io/libs-release</url>
+        </repository>
+        <repository>
+            <id>org.jboss.repository.releases</id>
+            <name>JBoss Maven Release Repository</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+        </repository>
+    </repositories>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>https://repo.spring.io/libs-release</url>
+        </pluginRepository>
+    </pluginRepositories>
 
 </project>
