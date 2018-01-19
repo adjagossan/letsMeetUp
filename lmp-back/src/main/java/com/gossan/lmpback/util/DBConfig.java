@@ -12,13 +12,14 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+
 
 /**
  * Created by Gossan on 28/12/2017.
  */
+
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
@@ -30,7 +31,7 @@ public class DBConfig {
 
     @Primary
     @Bean(name = "dataSource")
-    @ConfigurationProperties(prefix = "spring.datasource")
+    @ConfigurationProperties(prefix = "spring.h2db")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
