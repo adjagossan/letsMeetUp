@@ -1,6 +1,6 @@
-package com.gossan.lmuback.dao;
+package com.gossan.lmpback.dao;
 
-import com.gossan.lmuback.models.*;
+import com.gossan.lmpback.models.*;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
