@@ -1,4 +1,4 @@
-package com.gossan.lmuback.dao;
+package com.gossan.lmpback.dao;
 
 import com.gossan.lmpback.models.*;
 

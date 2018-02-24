@@ -1,4 +1,4 @@
-package com.gossan.lmuback.models;
+package com.gossan.lmpback.models;
 
 import javax.persistence.*;
 

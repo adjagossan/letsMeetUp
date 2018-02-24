@@ -1,4 +1,4 @@
-package com.gossan.lmuback.models;
+package com.gossan.lmpback.models;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;

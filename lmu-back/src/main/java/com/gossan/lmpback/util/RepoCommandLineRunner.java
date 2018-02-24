@@ -1,4 +1,4 @@
-package com.gossan.lmuback.util;
+package com.gossan.lmpback.util;
 
 import com.gossan.lmpback.dao.UserRepository;
 import com.gossan.lmpback.models.Address;
