@@ -10,6 +10,7 @@ import java.util.*;
 public class User {
 	
 	@Id
+	@Column(name = "USER_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
@@ -33,11 +34,16 @@ public class User {
 	
 	private String imagePath;
 	
-	@OneToMany (mappedBy = "organizer")
+	@OneToMany (mappedBy = "organizer", cascade = CascadeType.ALL)
 	private Collection<Event> createdEvent;
 	
 	@ManyToMany
-	private Event assistedEvent;
+	@JoinTable(
+			name = "USER_EVENT",
+			joinColumns = { @JoinColumn(name = "USER_ID")},
+			inverseJoinColumns = { @JoinColumn(name = "EVENT_ID")}
+	)
+	private Collection<Event> assistedEvent;
 	
 	public User() {
 	}
@@ -119,11 +125,11 @@ public class User {
 		this.createdEvent = createdEvent;
 	}
 
-	public Event getAssistedEvent() {
+	public Collection<Event> getAssistedEvent() {
 		return assistedEvent;
 	}
 
-	public void setAssistedEvent(Event assistedEvent) {
+	public void setAssistedEvent(Collection<Event> assistedEvent) {
 		this.assistedEvent = assistedEvent;
 	}
 	

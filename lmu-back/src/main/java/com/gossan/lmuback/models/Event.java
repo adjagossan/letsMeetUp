@@ -7,6 +7,7 @@ import java.util.*;
 public class Event {
 	
 	@Id
+	@Column(name = "EVENT_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
@@ -24,16 +25,38 @@ public class Event {
 	private String description;
 	
 	private String image;
+
+	@OneToOne
+	@JoinColumn(name="TOPIC_ID")
+	private Topic topic;
+
+	@ManyToOne
+	@JoinColumn(name="STATE_ID")
+	private State state;
 	
 	@ManyToOne
-	@JoinColumn(name="FK_USER")
+	@JoinColumn(name="ID_USER")
 	private User organizer;
 	
-	@ManyToMany
+	@ManyToMany( mappedBy = "assistedEvent")
 	private Collection<User> participants;
 	
-	private Topic topic;
-	
 	public Event() {
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public Topic getTopic() {
+		return topic;
+	}
+
+	public void setTopic(Topic topic) {
+		this.topic = topic;
 	}
 }

@@ -5,6 +5,7 @@ import com.gossan.lmuback.models.Address;
 import com.gossan.lmuback.models.Civility;
 import com.gossan.lmuback.models.State;
 import com.gossan.lmuback.models.User;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 
-@Component
+/*@Component
 public class RepoCommandLineRunner implements CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(RepoCommandLineRunner.class);
@@ -32,7 +33,7 @@ public class RepoCommandLineRunner implements CommandLineRunner {
         user.setNumberPhone("0768338889");
         Address address = new Address("CESSON", "RENNES", "35510");
         State state = new State();
-        address.setState(state);
+        //address.setState(state);
         user.setAddress(address);
 
         log.info("---------------------------------");
@@ -41,4 +42,4 @@ public class RepoCommandLineRunner implements CommandLineRunner {
         for(User us : userRepository.findAll())
             log.info(us.toString());
     }
-}
+}*/

@@ -5,9 +5,13 @@ import javax.persistence.*;
 public class Topic {
 	
 	@Id
+	@Column(name = "TOPIC_ID")
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	private int id;
 	private String value;
+
+	@OneToOne(mappedBy = "topic")
+	private Event event;
 	
 	public Topic() {
 	}
@@ -30,5 +34,13 @@ public class Topic {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public Event getEvent() {
+		return event;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 }

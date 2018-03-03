@@ -8,7 +8,6 @@ public class Address {
 	
 	private String street;
 	private String city;
-	private State state;
 	@Column(name = "ZIP_CODE")
 	private String zip;
 
@@ -18,13 +17,5 @@ public class Address {
 		this.street = street;
 		this.city = city;
 		this.zip = zip;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public void setState(State state) {
-		this.state = state;
 	}
 }
