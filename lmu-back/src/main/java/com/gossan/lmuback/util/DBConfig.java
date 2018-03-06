@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 /**
  * Created by Gossan on 28/12/2017.
  */
-
+/*
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
@@ -53,4 +53,4 @@ public class DBConfig {
         return new JpaTransactionManager(entityManagerFactory);
     }
 
-}
+}*/

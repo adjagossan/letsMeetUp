@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -17,7 +18,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource("test.properties")
+@PropertySource(value = "application.properties", ignoreResourceNotFound = true)
 @EnableJpaRepositories(
         entityManagerFactoryRef = "h2EntityManagerFactory",
         transactionManagerRef = "h2TransactionManager",
@@ -26,21 +27,24 @@ import javax.sql.DataSource;
 public class H2Config {
 
     @Bean(name = "h2DataSource")
+    @Primary
     public DataSource h2DataSource() {
         return DataSourceBuilder.create().build();
     }
 
     @Bean(name = "h2EntityManagerFactory")
+    //@Primary
     public LocalContainerEntityManagerFactoryBean h2EntityManagerFactory(
             EntityManagerFactoryBuilder builder,
             @Qualifier("h2DataSource") DataSource ds){
             return builder.dataSource(ds)
                     .packages("com.gossan.lumback.models")
-                    .persistenceUnit("lmuUnit")
+                    .persistenceUnit("h2LmuUnit")
                     .build();
     }
 
     @Bean(name = "h2TransactionManager")
+    //@Primary
     public PlatformTransactionManager h2TransactionManager(
             @Qualifier("h2EntityManagerFactory") EntityManagerFactory emf
     ){
