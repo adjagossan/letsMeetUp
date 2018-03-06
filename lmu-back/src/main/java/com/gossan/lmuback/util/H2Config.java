@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource("test.properties")
+@PropertySource("classpath:application.properties")
 @EnableJpaRepositories(
         entityManagerFactoryRef = "h2EntityManagerFactory",
         transactionManagerRef = "h2TransactionManager",

@@ -15,7 +15,6 @@ public class TopicEntityTest {
 
     @Autowired
     private TestEntityManager em;
-
     private Topic topic;
 
     @Before
@@ -27,5 +26,10 @@ public class TopicEntityTest {
     public void saveTopic(){
         Topic tp = this.em.persistAndFlush(topic);
         Assert.assertEquals("An error occured", tp.getValue(), "Blockchain");
+    }
+
+    @Test
+    public void getTopic(){
+
     }
 }

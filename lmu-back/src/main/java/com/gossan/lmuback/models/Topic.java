@@ -2,8 +2,9 @@ package com.gossan.lmuback.models;
 
 import javax.persistence.*;
 
+@Entity
 public class Topic {
-	
+
 	@Id
 	@Column(name = "TOPIC_ID")
 	@GeneratedValue (strategy = GenerationType.AUTO)
