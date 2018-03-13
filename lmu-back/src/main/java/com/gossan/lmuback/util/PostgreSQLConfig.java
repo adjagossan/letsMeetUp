@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -19,31 +20,32 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 @PropertySource(value = "application.properties", ignoreResourceNotFound = true)
 @EnableJpaRepositories(
-        entityManagerFactoryRef = "mysqlEntityManagerFactory",
-        transactionManagerRef = "mysqlTransactionManager",
+        entityManagerFactoryRef = "postgresqlEntityManagerFactory",
+        transactionManagerRef = "postgresqlTransactionManager",
         basePackages = {"com.gossan.lmuback.dao"}
 )
-public class MySQLConfig {
+@Profile("development")
+public class PostgreSQLConfig {
 
-    @Bean(name = "mysqlDataSource")
-    public DataSource mysqlDataSource(){
+    @Bean(name = "postgresqlDataSource")
+    public DataSource postgresqlDataSource(){
         return DataSourceBuilder.create().build();
     }
 
-    @Bean(name = "mysqlEntityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean mysqlEntityManagerFactory(
+    @Bean(name = "postgresqlEntityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean postgresqlEntityManagerFactory(
             EntityManagerFactoryBuilder builder,
-            @Qualifier("mysqlDataSource") DataSource ds
+            @Qualifier("postgresqlDataSource") DataSource ds
     ){
         return builder.dataSource(ds)
                 .packages("com.gossan.lumback.models")
-                .persistenceUnit("mysqlLmuUnit")
+                .persistenceUnit("postgresqlLmuUnit")
                 .build();
     }
 
-    @Bean(name = "mysqlTransactionManager")
-    public PlatformTransactionManager mysqlTransactionManager(
-            @Qualifier("mysqlEntityManagerFactory") EntityManagerFactory emf
+    @Bean(name = "postgresqlTransactionManager")
+    public PlatformTransactionManager postgresqlTransactionManager(
+            @Qualifier("postgresqlEntityManagerFactory") EntityManagerFactory emf
     ){
         return new JpaTransactionManager(emf);
     }

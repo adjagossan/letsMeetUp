@@ -30,6 +30,5 @@ public class TopicEntityTest {
 
     @Test
     public void getTopic(){
-
     }
 }
