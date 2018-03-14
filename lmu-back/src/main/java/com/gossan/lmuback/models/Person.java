@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -20,6 +21,10 @@ public class Person {
     @Embedded
     private Address address;
 
+    @ManyToOne
+    @JoinColumn(name = "STATE_ID")
+    private State state;
+
     @NotEmpty
     private String firstName;
 
@@ -35,7 +40,7 @@ public class Person {
     private String imagePath;
 
     @OneToMany (mappedBy = "organizer")
-    private Collection<Event> createdEvent;
+    private Collection<Event> createdEvent = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -43,9 +48,17 @@ public class Person {
             joinColumns = { @JoinColumn(name = "PERSON_ID")},
             inverseJoinColumns = { @JoinColumn(name = "EVENT_ID")}
     )
-    private Collection<Event> assistedEvent;
+    private Collection<Event> assistedEvent = new ArrayList<>();
 
     public Person(){
+    }
+
+    public Person(Civility civility, String firstName, String lastName, String mail, String numberPhone){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.mail = mail;
+        this.numberPhone = numberPhone;
+        this.civility = civility;
     }
 
     public long getId() {
@@ -120,6 +133,13 @@ public class Person {
         this.createdEvent = createdEvent;
     }
 
+    public void addEvent(Event evt){
+        this.createdEvent.add(evt);
+    }
+    public void addEventAll(Collection<Event> events){
+        events.stream().forEach(e -> this.createdEvent.add(e));
+    }
+
     public Collection<Event> getAssistedEvent() {
         return assistedEvent;
     }
@@ -128,4 +148,11 @@ public class Person {
         this.assistedEvent = assistedEvent;
     }
 
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
 }
