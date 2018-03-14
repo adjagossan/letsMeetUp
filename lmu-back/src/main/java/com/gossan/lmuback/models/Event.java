@@ -35,11 +35,11 @@ public class Event {
 	private State state;
 	
 	@ManyToOne
-	@JoinColumn(name="USER_ID")
-	private User organizer;
+	@JoinColumn(name="PERSON_ID")
+	private Person organizer;
 	
 	@ManyToMany( mappedBy = "assistedEvent")
-	private Collection<User> participants;
+	private Collection<Person> participants;
 	
 	public Event() {
 	}

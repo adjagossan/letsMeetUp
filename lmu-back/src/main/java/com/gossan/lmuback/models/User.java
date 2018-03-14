@@ -6,14 +6,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import java.util.*;
 
-@Entity
+//@Entity
 public class User {
 	
 	@Id
 	@Column(name = "USER_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
+	private long id;
+	/*
 	@Enumerated(EnumType.STRING)
 	private Civility civility;
 	
@@ -33,8 +33,8 @@ public class User {
 	private String numberPhone;
 	
 	private String imagePath;
-	
-	@OneToMany (mappedBy = "organizer", cascade = CascadeType.ALL)
+
+	@OneToMany (mappedBy = "organizer")
 	private Collection<Event> createdEvent;
 	
 	@ManyToMany
@@ -44,23 +44,27 @@ public class User {
 			inverseJoinColumns = { @JoinColumn(name = "EVENT_ID")}
 	)
 	private Collection<Event> assistedEvent;
-	
+	*/
+
 	public User() {
+	}
+
+	public User(int h){
 	}
 
 	@Override
 	public String toString(){
-		return String.format("Customer[id=%d, firstName='%s', lastName='%s']", id, firstName, lastName);
+		return String.format("Customer[id=%d, firstName='%s', lastName='%s']", id/*, firstName, lastName*/);
 	}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
-
+	/*
 	public Civility getCivility() {
 		return civility;
 	}
@@ -132,5 +136,5 @@ public class User {
 	public void setAssistedEvent(Collection<Event> assistedEvent) {
 		this.assistedEvent = assistedEvent;
 	}
-	
+	*/
 }
