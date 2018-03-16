@@ -11,9 +11,19 @@ import java.util.Collection;
 public class Person {
 
     @Id
-    @Column(name = "PERSON_ID")
+    @Column(name = "PERSON_ID", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    private String password;
+
+    @ManyToMany
+    @JoinTable(
+            name = "PERSON_ROLE",
+            joinColumns = { @JoinColumn(name = "PERSON_ID")},
+            inverseJoinColumns = { @JoinColumn(name = "ROLE_ID")}
+    )
+    private Collection<Role> roles = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Civility civility;
@@ -67,6 +77,22 @@ public class Person {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 
     public Civility getCivility() {
