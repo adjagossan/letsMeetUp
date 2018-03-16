@@ -33,7 +33,6 @@ public class EventEntityTest {
         state = new State("Côte d'Ivoire");
         otherState = new State("Senegal");
         organizer_state = new State("Usa");
-
         organizer = new Person(Civility.MONSIEUR,"ADJA", "Gossan", "adjagossan@gmail.com","04242276");
         Address addressEvent = new Address("cesson","Rennes","35510");
         Address addressPerson = new Address("beaulieu", "Rennes","35700");
@@ -55,15 +54,16 @@ public class EventEntityTest {
         this.participants.add(p2);
 
         event.setParticipants(this.participants);
-        event.setTopic(topic);
-        event.setState(state);
-        event.setOrganizer(organizer);
         event.setName("Information technology");
         event.setDescription("let's meet up to talk about blockchain");
         event.setImage("image_path");
         event.setStartDate(new Date(2018, 03, 14));
         event.setEndDate(new Date(2018, 03, 14));
         event.setAddress(addressEvent);
+        event.setTopic(topic);
+        event.setState(state);
+        event.setOrganizer(organizer);
+
     }
 
     @Test
@@ -76,13 +76,16 @@ public class EventEntityTest {
         this.em.persist(state);
         this.em.persist(organizer_state);
         this.em.persist(otherState);
+
         Event persistedEvent = this.em.persistFlushFind(event);
         Assert.assertNotNull("Event : an error occured : null instance", persistedEvent);
         Assert.assertTrue("Event, testing entity id : an error occured", persistedEvent.getId() == 1);
         Assert.assertEquals("Topic : An error occured", persistedEvent.getTopic().getValue(), "Blockchain");
         Assert.assertEquals("Event: an error occured", persistedEvent.getName(), "Information technology");
         Assert.assertEquals("Event.organizer : an error occured", persistedEvent.getOrganizer().getFirstName(), "ADJA");
+
         Assert.assertEquals("Event.participants ", this.event.getParticipants().size(), 2);
+
         //Update
         persistedEvent.setName("Digital economy");
         persistedEvent.getTopic().setValue("Information system");
@@ -92,11 +95,13 @@ public class EventEntityTest {
         Assert.assertEquals("Topic : An error occured", persistedEvent.getTopic().getValue(), "Information system");
         Assert.assertEquals("Event: an error occured", persistedEvent.getName(), "Digital economy");
         Assert.assertEquals("Event.organizer : an error occured", persistedEvent.getOrganizer().getFirstName(), "ADJA");
+
         //Delete
         /*this.em.remove(found_event);
         this.em.flush();
         Event evt = this.em.find(Event.class, 1);
         Assert.assertNull("Event : an error occured", evt);*/
+
     }
 
     @Test

@@ -116,6 +116,7 @@ public class Event {
 		this.participants = participants;
 	}
 
+
 	public void addParticipant(Person person){
 	    this.participants.add(person);
     }
@@ -139,4 +140,5 @@ public class Event {
     public void setTopic(Topic topic) {
         this.topic = topic;
     }
+
 }
