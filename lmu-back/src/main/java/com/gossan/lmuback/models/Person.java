@@ -49,6 +49,8 @@ public class Person {
 
     private String imagePath;
 
+    private boolean activated = false;
+
     @OneToMany (mappedBy = "organizer")
     private Collection<Event> createdEvent = new ArrayList<>();
 
@@ -63,9 +65,22 @@ public class Person {
     public Person(){
     }
 
-    public Person(Civility civility, String firstName, String lastName, String mail, String numberPhone){
+    public Person(Civility civility, String firstName, String lastName,
+                  String password, String mail, String numberPhone, Collection<Role> roles){
         this.firstName = firstName;
         this.lastName = lastName;
+        this.password = password;
+        this.mail = mail;
+        this.numberPhone = numberPhone;
+        this.civility = civility;
+        this.roles = roles;
+    }
+
+    public Person(Civility civility, String firstName, String lastName,
+                  String password, String mail, String numberPhone){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
         this.mail = mail;
         this.numberPhone = numberPhone;
         this.civility = civility;
@@ -149,6 +164,14 @@ public class Person {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 
     public Collection<Event> getCreatedEvent() {
