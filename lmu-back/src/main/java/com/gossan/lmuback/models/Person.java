@@ -1,23 +1,30 @@
 package com.gossan.lmuback.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gossan.lmuback.util.Util;
+import lombok.Data;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
-public class Person {
+@Data
+@ToString(exclude = "password")
+public class Person implements Serializable {
 
     @Id
     @Column(name = "PERSON_ID", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @JsonIgnore
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "PERSON_ROLE",
             joinColumns = { @JoinColumn(name = "PERSON_ID")},
@@ -42,6 +49,7 @@ public class Person {
     private String lastName;
 
     @Email
+    @Column(unique = true, nullable = false)
     private String mail;
 
     @NotEmpty
@@ -80,137 +88,13 @@ public class Person {
                   String password, String mail, String numberPhone){
         this.firstName = firstName;
         this.lastName = lastName;
-        this.password = password;
+        this.setPassword(password);
         this.mail = mail;
         this.numberPhone = numberPhone;
         this.civility = civility;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Collection<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
-    }
-
-    public Civility getCivility() {
-        return civility;
-    }
-
-    public void setCivility(Civility civility) {
-        this.civility = civility;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getNumberPhone() {
-        return numberPhone;
-    }
-
-    public void setNumberPhone(String numberPhone) {
-        this.numberPhone = numberPhone;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    public boolean isActivated() {
-        return activated;
-    }
-
-    public void setActivated(boolean activated) {
-        this.activated = activated;
-    }
-
-    public Collection<Event> getCreatedEvent() {
-        return createdEvent;
-    }
-
-    public void setCreatedEvent(Collection<Event> createdEvent) {
-        this.createdEvent = createdEvent;
-    }
-
-    public void addEvent(Event evt){
-        this.createdEvent.add(evt);
-    }
-
-    public void addEventAll(Collection<Event> events){
-        this.createdEvent.addAll(events);
-    }
-
-    public Collection<Event> getAssistedEvent() {
-        return assistedEvent;
-    }
-
-    public void setAssistedEvent(Collection<Event> assistedEvent) {
-        this.assistedEvent = assistedEvent;
-    }
-
-    public void addVisitedEvent(Event evt){
-        this.assistedEvent.add(evt);
-    }
-
-    public void addVisitedEventAll(Collection<Event> events){
-        this.assistedEvent.addAll(events);
-    }
-
-    public State getState() {
-        return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
+        this.password = Util.PASSWORD_ENCODER.encode(password);
     }
 }
