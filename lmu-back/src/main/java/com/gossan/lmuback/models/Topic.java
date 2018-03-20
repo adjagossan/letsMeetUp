@@ -1,8 +1,11 @@
 package com.gossan.lmuback.models;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 public class Topic {
 
 	@Id
@@ -21,27 +24,4 @@ public class Topic {
 		this.value = value;
 	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
-
-	public Event getEvent() {
-		return event;
-	}
-
-	public void setEvent(Event event) {
-		this.event = event;
-	}
 }

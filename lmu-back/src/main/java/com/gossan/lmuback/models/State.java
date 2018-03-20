@@ -1,10 +1,13 @@
 package com.gossan.lmuback.models;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
+@Data
 public class State {
 	
 	@Id
@@ -26,22 +29,5 @@ public class State {
 	public State(String name) {
 		this.name = name;
 	}
-	
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	
 }

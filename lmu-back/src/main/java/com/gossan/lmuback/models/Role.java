@@ -1,10 +1,13 @@
 package com.gossan.lmuback.models;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
+@Data
 public class Role {
 
     @Id
@@ -31,35 +34,4 @@ public class Role {
         this.name = name;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Collection<Person> getPersons() {
-        return persons;
-    }
-
-    public void setPersons(Collection<Person> persons) {
-        this.persons = persons;
-    }
-
-    public Collection<Privilege> getPrivileges() {
-        return privileges;
-    }
-
-    public void setPrivileges(Collection<Privilege> privileges) {
-        this.privileges = privileges;
-    }
 }

@@ -1,7 +1,6 @@
 package com.gossan.lmuback.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gossan.lmuback.util.Util;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Email;
@@ -95,6 +94,6 @@ public class Person implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = Util.PASSWORD_ENCODER.encode(password);
+        this.password = password;
     }
 }

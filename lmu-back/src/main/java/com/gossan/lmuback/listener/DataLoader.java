@@ -10,6 +10,7 @@ import com.gossan.lmuback.models.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,9 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Transactional
     Privilege newPrivilege(final String name){
@@ -57,7 +61,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
                      final String mail, String numberPhone, final Collection<Role> roles){
         Person p = personRepository.findByMail(mail);
         if(p == null){
-            p = new Person(civility, firstName, lastName, password, mail, numberPhone);
+            p = new Person(civility, firstName, lastName, passwordEncoder.encode(password), mail, numberPhone);
         }
         p.setRoles(roles);
         personRepository.saveAndFlush(p);

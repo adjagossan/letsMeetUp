@@ -1,9 +1,12 @@
 package com.gossan.lmuback.models;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Embeddable
 @Access (AccessType.FIELD)
+@Data
 public class Address {
 	
 	private String street;
