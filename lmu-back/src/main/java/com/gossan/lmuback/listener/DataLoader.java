@@ -74,18 +74,22 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         if (loaded)
             return;
 
-        final Privilege reading = new Privilege("READING");
-        final Privilege writing = new Privilege("WRITING");
-        final Privilege change_password = new Privilege("CHANGE_PASSWORD");
+        final Privilege reading = newPrivilege("READING");
+        final Privilege writing = newPrivilege("WRITING");
+        final Privilege change_password = newPrivilege("CHANGE_PASSWORD");
 
-        final Role organizer = new Role("ORGANIZER");
-        final Role user = new Role("USER");
+
+        /*final Role organizer = newRole("ORGANIZER");
+        final Role user = newRole("USER");*/
 
         final Collection<Privilege> organizer_privilege = new ArrayList<>(Arrays.asList(reading, writing, change_password));
         final Collection<Privilege> user_privilege = new ArrayList<>(Arrays.asList(writing, change_password));
 
-        organizer.setPrivileges(organizer_privilege);
-        user.setPrivileges(user_privilege);
+        /*organizer.setPrivileges(organizer_privilege);
+        user.setPrivileges(user_privilege);*/
+
+        final Role organizer = newRole("ORGANIZER", organizer_privilege);
+        final Role user = newRole("USER", user_privilege);
 
         newPerson(Civility.MONSIEUR, "Gossan", "ADJA", "password",
                 "adjagossan@gmail.com", "00000000", new ArrayList<>(Arrays.asList(organizer)));

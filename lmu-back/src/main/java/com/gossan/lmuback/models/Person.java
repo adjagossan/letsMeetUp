@@ -96,4 +96,20 @@ public class Person implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public void addEvent(Event event){
+        this.createdEvent.add(event);
+    }
+
+    public void addEventAll(Collection<Event> events){
+        this.createdEvent.addAll(events);
+    }
+
+    public void addVisitedEvent(Event event){
+        this.assistedEvent.add(event);
+    }
+
+    public void addVisitedEventAll(Collection<Event> events){
+        this.assistedEvent.addAll(events);
+    }
 }

@@ -33,19 +33,19 @@ public class EventEntityTest {
         state = new State("Côte d'Ivoire");
         otherState = new State("Senegal");
         organizer_state = new State("Usa");
-        organizer = new Person(Civility.MONSIEUR,"ADJA", "Gossan", "adjagossan@gmail.com","04242276");
+        organizer = new Person(Civility.MONSIEUR,"ADJA", "Gossan", "","adjagossan@gmail.com","04242276");
         Address addressEvent = new Address("cesson","Rennes","35510");
         Address addressPerson = new Address("beaulieu", "Rennes","35700");
         organizer.setAddress(addressPerson);
         organizer.addEvent(event);
         organizer.setState(organizer_state);
 
-        p1 = new Person(Civility.MADAME, "ADJA", "Arielle", "adjaarielle@gmail.com", "77450023");
+        p1 = new Person(Civility.MADAME, "ADJA", "Arielle", "","adjaarielle@gmail.com", "77450023");
         p1.setAddress(new Address("cocody", "Abidjan", "5000"));
         p1.setState(otherState);
         p1.addVisitedEvent(this.event);
 
-        p2 = new Person(Civility.MADEMOISELLE, "ZOKOU", "Rita", "zokou@outlook.com", "45201223");
+        p2 = new Person(Civility.MADEMOISELLE, "ZOKOU", "Rita", "","zokou@outlook.com", "45201223");
         p2.setAddress(new Address("EMPT", "Bingerville", "4800"));
         p2.setState(state);
         p2.addVisitedEvent(this.event);

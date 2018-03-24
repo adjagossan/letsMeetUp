@@ -1,7 +1,6 @@
 package com.gossan.lmuback.models;
 
 import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity
