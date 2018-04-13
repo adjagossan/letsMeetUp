@@ -21,7 +21,7 @@ import javax.sql.DataSource;
         transactionManagerRef = "h2TransactionManager",
         basePackages = {"com.gossan.lmuback.dao"}
 )
-@Profile("test")
+@Profile("production")
 public class H2Config {
 
     @Bean(name = "h2DataSource")

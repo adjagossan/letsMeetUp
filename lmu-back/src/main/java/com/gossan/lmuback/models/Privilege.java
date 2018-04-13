@@ -13,7 +13,7 @@ public class Privilege {
     @Id
     @Column(name = "PRIVILEGE_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     private String name;
 

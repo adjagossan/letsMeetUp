@@ -13,7 +13,7 @@ public class State {
 	@Id
 	@Column(name = "STATE_ID")
 	@GeneratedValue (strategy = GenerationType.AUTO)
-	private int id;
+	private Long id;
 
 	private String name;
 

@@ -10,7 +10,7 @@ public class Topic {
 	@Id
 	@Column(name = "TOPIC_ID")
 	@GeneratedValue (strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 	private String value;
 
 	@OneToOne(mappedBy = "topic")

@@ -24,7 +24,7 @@ import javax.sql.DataSource;
         transactionManagerRef = "postgresqlTransactionManager",
         basePackages = {"com.gossan.lmuback.dao"}
 )
-@Profile("development")
+@Profile({"development", "test"})
 public class PostgreSQLConfig {
 
     @Bean(name = "postgresqlDataSource")

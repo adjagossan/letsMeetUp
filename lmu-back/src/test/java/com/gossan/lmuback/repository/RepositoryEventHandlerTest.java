@@ -1,6 +1,7 @@
-package com.gossan.lmuback.test;
+package com.gossan.lmuback.repository;
 
 import com.gossan.lmuback.dao.TopicRepository;
+import com.gossan.lmuback.models.Event;
 import com.gossan.lmuback.models.Topic;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpOutputMessage;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,11 +28,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-
+@ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @WebAppConfiguration
 public class RepositoryEventHandlerTest {
+
+    private Event event;
+    private Topic topic;
 
     @Autowired
     TopicRepository topicRepository;
@@ -69,10 +74,13 @@ public class RepositoryEventHandlerTest {
     public void baseSetup(){
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
         topicRepository.deleteAll();
+
+        event = new Event();
+        topic = new Topic("Blockchain");
     }
 
     @Test
-    public void testEventHandler() throws Exception {
+    public void topicRepositoryTest() throws Exception {
         String topicJson = json(new Topic("Business IT"));
         this.mockMvc.perform(post("/api/topic/new")
                 .contentType(contentType)

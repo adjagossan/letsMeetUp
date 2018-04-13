@@ -18,7 +18,7 @@ public class Person implements Serializable {
     @Id
     @Column(name = "PERSON_ID", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @JsonIgnore
     private String password;

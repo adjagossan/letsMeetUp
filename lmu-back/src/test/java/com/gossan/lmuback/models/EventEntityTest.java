@@ -1,5 +1,7 @@
 package com.gossan.lmuback.models;
 
+import com.gossan.lmuback.dao.EventRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,18 +9,24 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-@RunWith(SpringRunner.class)
+@ActiveProfiles("test")
+@RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
 public class EventEntityTest {
 
     @Autowired
     private TestEntityManager em;
+
+    @Autowired
+    private EventRepository eventRepository;
+
     private Topic topic;
     private Event event;
     private State state, otherState, organizer_state;
@@ -76,26 +84,41 @@ public class EventEntityTest {
         this.em.persist(state);
         this.em.persist(organizer_state);
         this.em.persist(otherState);
+        this.em.persist(event);
 
-        Event persistedEvent = this.em.persistFlushFind(event);
-        Assert.assertNotNull("Event : an error occured : null instance", persistedEvent);
-        Assert.assertTrue("Event, testing entity id : an error occured", persistedEvent.getId() == 1);
-        Assert.assertEquals("Topic : An error occured", persistedEvent.getTopic().getValue(), "Blockchain");
-        Assert.assertEquals("Event: an error occured", persistedEvent.getName(), "Information technology");
-        Assert.assertEquals("Event.organizer : an error occured", persistedEvent.getOrganizer().getFirstName(), "ADJA");
+        Event myEvent = this.eventRepository.findOne(event.getId());
 
-        Assert.assertEquals("Event.participants ", this.event.getParticipants().size(), 2);
+        Assertions.assertThat(myEvent).isNotNull();
+        Assertions.assertThat(myEvent).isEqualTo(event);
+        Assertions.assertThat(myEvent).hasFieldOrPropertyWithValue("name", "Information technology");
+        Assertions.assertThat(myEvent).hasFieldOrPropertyWithValue("topic", topic);
+        Assertions.assertThat(myEvent.getTopic()).hasFieldOrPropertyWithValue("value", "Blockchain");
+        Assertions.assertThat(myEvent).hasFieldOrPropertyWithValue("organizer", organizer);
+        Assertions.assertThat(myEvent.getOrganizer()).hasFieldOrPropertyWithValue("firstName", "ADJA");
+        Assertions.assertThat(myEvent.getParticipants()).hasSize(2);
+
 
         //Update
+        myEvent.setName("Digital economy");
+        myEvent.getTopic().setValue("Information system");
+        myEvent.getOrganizer().setFirstName("Gossan");
+        this.em.persist(myEvent);
+        Assertions.assertThat(myEvent).hasFieldOrPropertyWithValue("name", "Digital economy");
+        Assertions.assertThat(myEvent.getTopic()).hasFieldOrPropertyWithValue("value", "Information system");
+        Assertions.assertThat(myEvent.getOrganizer()).hasFieldOrPropertyWithValue("firstName", "Gossan");
+        /*
         persistedEvent.setName("Digital economy");
         persistedEvent.getTopic().setValue("Information system");
-        this.em.flush();
+        this.em.persist(persistedEvent);
+        this.em.flush();*/
+
+        /*
         Event found_event = this.em.find(Event.class, 1);
         Assert.assertNotNull("Event : an error occured", found_event);
         Assert.assertEquals("Topic : An error occured", persistedEvent.getTopic().getValue(), "Information system");
         Assert.assertEquals("Event: an error occured", persistedEvent.getName(), "Digital economy");
         Assert.assertEquals("Event.organizer : an error occured", persistedEvent.getOrganizer().getFirstName(), "ADJA");
-
+        */
         //Delete
         /*this.em.remove(found_event);
         this.em.flush();

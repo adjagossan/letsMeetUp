@@ -10,13 +10,13 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 import static com.gossan.lmuback.util.WebSocketConfiguration.MESSAGE_PREFIX;
 
-@Component
-@RepositoryEventHandler(Topic.class)
+/*@Component
+@RepositoryEventHandler(Topic.class)*/
 public class TopicEventHandler {
 
-    private final EntityLinks entityLinks;
-
     private final SimpMessagingTemplate websocket;
+
+    private final EntityLinks entityLinks;
 
     @Autowired
     public TopicEventHandler(SimpMessagingTemplate websocket, EntityLinks entityLinks){
@@ -38,3 +38,4 @@ public class TopicEventHandler {
         return this.entityLinks.linkForSingleResource(topic.getClass(), topic.getId()).toUri().getPath();
     }
 }
+
